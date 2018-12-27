@@ -379,7 +379,7 @@ def generate_outputs(n,with_replacement,a,b,seed,skip):
     count = 0        
     printing_wanted = True
     if printing_wanted:
-        print "(6) Generating output:"
+        print("(6) Generating output:")
 
     # loop until we have generated the desired sample of size n
     while len(old_output_list)+len(new_output_list) < n:
@@ -387,7 +387,7 @@ def generate_outputs(n,with_replacement,a,b,seed,skip):
         count = count + 1
         
         # hash_input is seed followed by comma followed by decimal rep of count
-        hash_input = seed + "," + str(count)
+        hash_input = bytes(seed + "," + str(count), 'utf-8')
         # Apply SHA-256, interpreting hex output as hexadecimal integer
         # to yield 256-bit integer (a python "long integer")
         hash_output = int(hashlib.sha256(hash_input).hexdigest(),16)
@@ -397,16 +397,16 @@ def generate_outputs(n,with_replacement,a,b,seed,skip):
         
         if not with_replacement and (pick in new_output_list or pick in old_output_list):
             if printing_wanted:
-                print "    %7d."%(len(new_output_list)),hash_input,"==>",pick," (duplicate rejected)"
+                print("    %7d."%(len(new_output_list)),hash_input,"==>",pick," (duplicate rejected)")
         else:
             if len(old_output_list) < skip:
                 old_output_list.append(pick)
                 if printing_wanted:
-                    print "    %7d."%len(new_output_list),hash_input,"==>",pick," (skipped, since it was in previous sample)"
+                    print("    %7d."%len(new_output_list),hash_input,"==>",pick," (skipped, since it was in previous sample)")
             else:
                 new_output_list.append(pick)
                 if printing_wanted:
-                    print "    %7d."%len(new_output_list),hash_input,"==>",pick
+                    print("    %7d."%len(new_output_list),hash_input,"==>",pick)
 
     return (old_output_list,new_output_list)
 
@@ -415,9 +415,9 @@ def print_list(L):
     Print list L of integers, with at most 10 per line
     """
     for i in range(0,len(L),10):
-        print "    ",
+        print("    ",)
         for j in range(min(10,len(L)-i)):
-            print "%7d "%L[i+j],
+            print("%7d "%L[i+j],)
         print
 
 def write_list_to_file(file,L):
@@ -438,133 +438,133 @@ def write_list_to_file(file,L):
 
 def main():
     print
-    print "SAMPLER -- pseudo-random sample generation for election auditing or other uses."
-    print "Written by Ronald L. Rivest."
-    print "Sampler version: ",sampler_version
-    print "Python version: ",python_version
-    print "Generates a sample of size n of integers from a to b (inclusive)"
-    print "based on supplied parameters, including seed value(s)"
-    print "and the specification as to whether sampling with replacement is desired."
-    print 
-    print "Current date/time:", datetime.datetime.now().isoformat(" ")
+    print("SAMPLER -- pseudo-random sample generation for election auditing or other uses.")
+    print("Written by Ronald L. Rivest.")
+    print("Sampler version: ",sampler_version)
+    print("Python version: ",python_version)
+    print("Generates a sample of size n of integers from a to b (inclusive)")
+    print("based on supplied parameters, including seed value(s)")
+    print("and the specification as to whether sampling with replacement is desired.")
+    print()
+    print("Current date/time:", datetime.datetime.now().isoformat(" "))
     print
 
-    print "(1) Enter text describing election id (e.g. name and date), then hit return"
-    print "    This is for documentation purposes only, and does not affect computation."
-    print "    Example: "
-    print "        Election ID >>> Gotham City Mayor's Race, November 2072"
-    print 
-    electionid = raw_input("    Election ID >>> ")
-    print "    ------"
-    print "    Election ID =",str(electionid)
+    print("(1) Enter text describing election id (e.g. name and date), then hit return")
+    print("    This is for documentation purposes only, and does not affect computation.")
+    print("    Example: ")
+    print("        Election ID >>> Gotham City Mayor's Race, November 2072")
+    print()
+    electionid = input("    Election ID >>> ")
+    print("    ------")
+    print("    Election ID =",str(electionid))
     print
 
-    print "(2) Enter one or more lines of text giving random number seed values."
-    print "    These are typically decimal numbers, but may be arbitrary strings."
-    print "    Embedded blanks OK, but initial and trailing blanks ignored."
-    print "    Using decimal dice to generate these values is good practice."
-    print "    Having different parties generate different seed values is good practice."
-    print "    Having at least 24 random digits entered total is good practice."
-    print "    When finished, enter a blank line."
-    print "    Example: (USE NEW RANDOM VALUES, NOT THESE ONES)"
-    print "        seed value (or blank line when done) >>> 314525782315"
-    print "        seed value (or blank line when done) >>> 667241589410"
-    print "        seed value (or blank line when done) >>> "
-    print 
+    print("(2) Enter one or more lines of text giving random number seed values.")
+    print("    These are typically decimal numbers, but may be arbitrary strings.")
+    print("    Embedded blanks OK, but initial and trailing blanks ignored.")
+    print("    Using decimal dice to generate these values is good practice.")
+    print("    Having different parties generate different seed values is good practice.")
+    print("    Having at least 24 random digits entered total is good practice.")
+    print("    When finished, enter a blank line.")
+    print("    Example: (USE NEW RANDOM VALUES, NOT THESE ONES)")
+    print("        seed value (or blank line when done) >>> 314525782315")
+    print("        seed value (or blank line when done) >>> 667241589410")
+    print("        seed value (or blank line when done) >>> ")
+    print()
     seedlist = [ ] 
     while True:
-        seed_value = raw_input("    seed value (or blank line when done) >>> ")
+        seed_value = input("    seed value (or blank line when done) >>> ")
         seed_value = seed_value.strip()        # eliminate initial and trailing blanks
         if seed_value == "":
             break
         seedlist.append(seed_value)
     # concatenate all seeds together
     seed = string.join(seedlist,"")
-    print "    ------"
-    print "    Seed =",str(seed)
+    print("    ------")
+    print("    Seed =",str(seed))
     print
 
-    print "(3) Outputs will be in range  a  to  b , inclusive"
-    print "    Enter integer a (start of range)"
-    print "    Example:"
-    print "        a >>> 1"
+    print("(3) Outputs will be in range  a  to  b , inclusive")
+    print("    Enter integer a (start of range)")
+    print("    Example:")
+    print("        a >>> 1")
     print
-    a = int(raw_input("    a >>> "))
+    a = int(input("    a >>> "))
     print
-    print "    Enter integer b (end of range)"
-    print "    Example:"
-    print "        b >>> 213"
+    print("    Enter integer b (end of range)")
+    print("    Example:")
+    print("        b >>> 213")
     print
-    b = int(raw_input("    b >>> "))
+    b = int(input("    b >>> "))
     assert (a<b)
-    print "    ------"
-    print "    a = ",a,", b = ",b
+    print("    ------")
+    print("    a = ",a,", b = ",b)
     N = (b - a + 1)
-    print "    N = %d  (number of integers in set to draw sample from)"%N
+    print("    N = %d  (number of integers in set to draw sample from)"%N)
     print
 
-    print "(4) Are duplicates OK (i.e. sample with replacement)?"
-    print "    Example:"
-    print "        Duplicates OK (sample with replacement) (y or n)? >>> n"
+    print("(4) Are duplicates OK (i.e. sample with replacement)?")
+    print("    Example:")
+    print("        Duplicates OK (sample with replacement) (y or n)? >>> n")
     print
-    with_replacement = raw_input("    Duplicates OK (sample with replacement) (y or n)? >>> ")
+    with_replacement = input("    Duplicates OK (sample with replacement) (y or n)? >>> ")
     with_replacement = string.strip(with_replacement)
     with_replacement = string.lower(with_replacement)
     assert (with_replacement == 'y' or with_replacement == 'n')
     with_replacement = (with_replacement == 'y')
-    print "    ------"
+    print("    ------")
     if with_replacement:
-        print "    Duplicate outputs OK (that is, sampling 'with replacement')."
+        print("    Duplicate outputs OK (that is, sampling 'with replacement').")
     else:
-        print "    Duplicate outputs not allowed (that is sampling 'without replacement')"
+        print("    Duplicate outputs not allowed (that is sampling 'without replacement')")
     print
 
-    print "(5) Are you now asking for an expanded version of a previously generated sample?"
-    print "    Example:"
-    print "        Is this an expanded version of a previously generated sample? >>> n"
-    print 
-    expanded_sample = raw_input("    Is this an expanded version of a previously generated sample? >>> ")
+    print("(5) Are you now asking for an expanded version of a previously generated sample?")
+    print("    Example:")
+    print("        Is this an expanded version of a previously generated sample? >>> n")
+    print()
+    expanded_sample = input("    Is this an expanded version of a previously generated sample? >>> ")
     print
     expanded_sample = string.strip(expanded_sample)
     expanded_sample = string.lower(expanded_sample)
     assert (expanded_sample == 'y' or expanded_sample == 'n')
     expanded_sample = (expanded_sample == 'y')
     if expanded_sample:
-        print "    What was the size of that previous sample? "
-        print "    Example: "
-        print "        What was the size of the previous sample? >>> 21"
+        print("    What was the size of that previous sample? ")
+        print("    Example: ")
+        print("        What was the size of the previous sample? >>> 21")
         print
-        skip = raw_input("    What was the size of the previous sample? >>> ")
+        skip = input("    What was the size of the previous sample? >>> ")
         skip = int(skip)
         print
-        print "    How many additional output elements do you now want? "
-        print "    Example: "
-        print "        How many additional output elements do you now want? >>> 25"
+        print("    How many additional output elements do you now want? ")
+        print("    Example: ")
+        print("        How many additional output elements do you now want? >>> 25")
         print
-        new_elts = raw_input("    How many additional output elements do you now want? >>> ")
+        new_elts = input("    How many additional output elements do you now want? >>> ")
         new_elts = int(new_elts)
         print
         n = skip + new_elts
         assert with_replacement or (n <= N)
     else:
-        print "    How many outputs do you want (integer n)?"
-        print "    Example: "
-        print "        n >>> 43"
+        print("    How many outputs do you want (integer n)?")
+        print("    Example: ")
+        print("        n >>> 43")
         print
-        n = int(raw_input("    n >>> "))   
+        n = int(input("    n >>> "))   
         assert (n>0)
         assert with_replacement or (n <= N)
         skip = 0
         new_elts = n
 
-    print "    ------"
+    print("    ------")
     if expanded_sample:
-        print "    Request is for an expanded sample."
-        print "    Size of previous sample (number of elements to skip now) is %d"%skip
-        print "    Number of new elements to generate is %d"%new_elts
+        print("    Request is for an expanded sample.")
+        print("    Size of previous sample (number of elements to skip now) is %d"%skip)
+        print("    Number of new elements to generate is %d"%new_elts)
         print
     else:
-        print "    Request is for a new sample of size n = %d"%n
+        print("    Request is for a new sample of size n = %d"%n)
         print
 
     old_output_list,new_output_list = generate_outputs(n,with_replacement,a,b,seed,skip)
@@ -572,35 +572,35 @@ def main():
     print
 
     if len(old_output_list)>0:
-        print "    Unsorted list of outputs in previous sample:"
+        print("    Unsorted list of outputs in previous sample:")
         print_list(old_output_list)
-        print 
-        print "    Sorted list of outputs in previous sample:"
+        print()
+        print("    Sorted list of outputs in previous sample:")
         sorted_old_output_list = sorted(old_output_list)
         print_list(sorted_old_output_list)
         print
-        print "    Unsorted list of new outputs:"
+        print("    Unsorted list of new outputs:")
         print_list(new_output_list)
-        print 
-        print "    Sorted list of new outputs:"
+        print()
+        print("    Sorted list of new outputs:")
         sorted_new_output_list = sorted(new_output_list)
         print_list(sorted_new_output_list)
         print
     else:
-        print "    Unsorted list of outputs:"
+        print("    Unsorted list of outputs:")
         print_list(new_output_list)
-        print 
-        print "    Sorted list of outputs:"
+        print()
+        print("    Sorted list of outputs:")
         sorted_new_output_list = sorted(new_output_list)
         print_list(sorted_new_output_list)
         print
 
     # Write output to a file as well
-    print "(7) Saving results to file if desired."
-    print "    Example: "
-    print "        Name of output file (or blank line if saving results to file not desired): sample-2072-11-03.txt"
+    print("(7) Saving results to file if desired.")
+    print("    Example: ")
+    print("        Name of output file (or blank line if saving results to file not desired): sample-2072-11-03.txt")
     print
-    filename = raw_input("    Name of output file (or blank line if saving results to file not desired): ")
+    filename = input("    Name of output file (or blank line if saving results to file not desired): ")
     
     if filename != "":
         file = open(filename,"w")
@@ -629,14 +629,15 @@ def main():
             file.write("\n")
         file.write("Done.\n")
         file.close()
-        print "    Results saved in output file:",filename
+        print("    Results saved in output file:",filename)
         print
     else:
-        print "    No output file written."
+        print("    No output file written.")
         print
         
-    print "Current date/time:", datetime.datetime.now().isoformat(" ")
+    print("Current date/time:", datetime.datetime.now().isoformat(" "))
     print
-    print "Done."
+    print("Done.")
 
-main()
+if __name__ == '__main__':
+    main()
